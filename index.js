@@ -1,66 +1,25 @@
-let rp = require('request-promise');
-let cors = require('cors');
+require('dotenv').config();
+const cors = require('cors');
+const express = require('express');
+const bodyParser = require('body-parser');
 
-let express = require('express');
-let app = express();
+const serviceFactory = require('./service/_serviceFactory')();
+serviceFactory.init().then(serviceInstance => {
 
-let bodyParser = require('body-parser');
+    const app = express();
 
-app.use(require('./util/requestTimer'));
-app.use(cors());
-app.use(bodyParser.json());       // to support JSON-encoded bodies
-app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
-    extended: true
-}));
-//
-// app.get('*', function (req, res) {
-//     const path = req.path;
-//     const query = req.query;
-//     const body = req.body;
-//     const header = req.headers;
-//
-//     const options = {
-//         method: 'GET',
-//         uri: 'https://omg-server.herokuapp.com' + path,
-//         qs: query,
-//         // headers: header,
-//         body: body,
-//         json: true,
-//         rejectUnauthorized: false
-//     };
-//
-//     rp(options)
-//         .then(result => {
-//             console.log(options);
-//             console.log(result);
-//             res.send(result);
-//         })
-// });
-//
-// app.post('*', function (req, res) {
-//     const path = req.path;
-//     const query = req.query;
-//     const body = req.body;
-//     const header = req.headers;
-//
-//     const options = {
-//         method: 'POST',
-//         uri: 'https://omg-server.herokuapp.com' + path,
-//         qs: query,
-//         // headers: header,
-//         body: body,
-//         json: true,
-//         rejectUnauthorized: false
-//     };
-//
-//     rp(options)
-//         .then(result => {
-//             console.log(options);
-//             console.log(result);
-//             res.send(result);
-//         })
-// });
-app.use('/', [require('./api/_index')]);
-app.use(require('./util/errorHandler')({debug: true}));
+    app.use(require('./util/requestTimer'));
+    app.use((req, res, next) => {
+        req.service = serviceInstance;
+        next();
+    });
+    app.use(cors());
+    app.use(bodyParser.json());       // to support JSON-encoded bodies
+    app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+        extended: true
+    }));
+    app.use('/', [require('./api/_index')]);
+    app.use(require('./util/errorHandler')({debug: true}));
 
-app.listen(4000);
+    app.listen(4000);
+});

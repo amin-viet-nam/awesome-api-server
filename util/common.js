@@ -1,5 +1,4 @@
 class Common {
-
     getRandomNumber(length) {
         let text = "";
         const possible = "1234567890";

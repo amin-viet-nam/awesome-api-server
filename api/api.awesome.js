@@ -8,25 +8,20 @@ module.exports = (router) => {
         res.send('pong');
     });
 
-    router.get('/cats', (req, res, next) => {
-        return req.service
-            .resource
-            .getAppCategories()
-            .then(resources => {
-                res.send(resources);
+    router.get('/api/content', (req, res, next) => {
+        req.service
+            .content
+            .getContents({
+                page: parseInt(req.query.page || 1),
+                size: 25,
+                language: req.query.language
             })
-            .catch(next);
+            .then((value) => {
+                res.send(value);
+            }).catch(next);
     });
 
-    router.post('/jwt-firebase', (req, res, next) => {
-        let firebaseToken = req.body.firebaseToken || '';
+    router.post('*', (req, res, next) => {
 
-        return req.service
-            .user
-            .loginByFirebaseToken(firebaseToken)
-            .then((user) => {
-                res.send(user)
-            })
-            .catch(next);
     });
 };

@@ -1,4 +1,4 @@
-const logger = require('../util/logger').getExpressLogger();
+const logger = require('../util/logger').getLogger('RequestError', 'error');
 
 const errorHandler = (opts = {}) => (err, req, res, next) => {
     console.log(err);

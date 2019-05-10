@@ -1,15 +1,16 @@
-let log4js = require('log4js');
+const log4js = require('log4js');
 
-exports.getExpressLogger = getExpressLogger;
-exports.getLogger = getLogger;
+class Logger {
+    getExpressLogger() {
+        let logger = log4js.getLogger('ApiRequest');
+        return log4js.connectLogger(logger, {level: 'debug'})
+    }
 
-function getExpressLogger() {
-    let logger = log4js.getLogger('ApiRequest');
-    return log4js.connectLogger(logger, {level: 'debug'})
-}
+    getLogger(name, level) {
+        const logger = log4js.getLogger(name);
+        logger.level = level || 'debug';
+        return logger;
+    }
+};
 
-function getLogger(name) {
-    const logger = log4js.getLogger(name);
-    logger.level = 'debug';
-    return logger;
-}
+module.exports = new Logger();
