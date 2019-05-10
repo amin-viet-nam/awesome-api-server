@@ -6,58 +6,61 @@ let app = express();
 
 let bodyParser = require('body-parser');
 
+app.use(require('./util/requestTimer'));
 app.use(cors());
 app.use(bodyParser.json());       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
     extended: true
 }));
-
-app.get('*', function (req, res) {
-    const path = req.path;
-    const query = req.query;
-    const body = req.body;
-    const header = req.headers;
-
-    const options = {
-        method: 'GET',
-        uri: 'https://omg-server.herokuapp.com' + path,
-        qs: query,
-        // headers: header,
-        body: body,
-        json: true,
-        rejectUnauthorized: false
-    };
-
-    rp(options)
-        .then(result => {
-            console.log(options);
-            console.log(result);
-            res.send(result);
-        })
-});
-
-app.post('*', function (req, res) {
-    const path = req.path;
-    const query = req.query;
-    const body = req.body;
-    const header = req.headers;
-
-    const options = {
-        method: 'POST',
-        uri: 'https://omg-server.herokuapp.com' + path,
-        qs: query,
-        // headers: header,
-        body: body,
-        json: true,
-        rejectUnauthorized: false
-    };
-
-    rp(options)
-        .then(result => {
-            console.log(options);
-            console.log(result);
-            res.send(result);
-        })
-});
+//
+// app.get('*', function (req, res) {
+//     const path = req.path;
+//     const query = req.query;
+//     const body = req.body;
+//     const header = req.headers;
+//
+//     const options = {
+//         method: 'GET',
+//         uri: 'https://omg-server.herokuapp.com' + path,
+//         qs: query,
+//         // headers: header,
+//         body: body,
+//         json: true,
+//         rejectUnauthorized: false
+//     };
+//
+//     rp(options)
+//         .then(result => {
+//             console.log(options);
+//             console.log(result);
+//             res.send(result);
+//         })
+// });
+//
+// app.post('*', function (req, res) {
+//     const path = req.path;
+//     const query = req.query;
+//     const body = req.body;
+//     const header = req.headers;
+//
+//     const options = {
+//         method: 'POST',
+//         uri: 'https://omg-server.herokuapp.com' + path,
+//         qs: query,
+//         // headers: header,
+//         body: body,
+//         json: true,
+//         rejectUnauthorized: false
+//     };
+//
+//     rp(options)
+//         .then(result => {
+//             console.log(options);
+//             console.log(result);
+//             res.send(result);
+//         })
+// });
+app.use('/', [require('./api/_index')]);
+app.use(require('./util/errorHandler')({debug: true}));
 
 app.listen(4000);
