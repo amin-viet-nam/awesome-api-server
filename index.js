@@ -21,5 +21,5 @@ serviceFactory.init().then(serviceInstance => {
     app.use('/', [require('./api/_index')]);
     app.use(require('./util/errorHandler')({debug: true}));
 
-    app.listen(4000);
+    app.listen(3000);
 });
