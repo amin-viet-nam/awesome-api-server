@@ -20,7 +20,9 @@ class ContentService extends BaseService {
                 },
                 {
                     $sort: {
-                        _id: -1
+                        trending: -1,
+                        is_new: -1,
+                        _id: -1,
                     }
                 },
                 {
@@ -28,15 +30,8 @@ class ContentService extends BaseService {
                 },
                 {
                     $limit: size
-                },
-                {
-                    $sample: {
-                        size
-                    }
                 }
             ])
-            // .skip(page * size)
-            // .limit(size)
             .toArray();
     }
 }
