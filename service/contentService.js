@@ -5,10 +5,24 @@ class ContentService extends BaseService {
         super(serviceProvider, mongoDb);
     }
 
+    getContentById(id){
+        return this.mongo
+            .collection('content')
+            .find({
+                _id: id
+            })
+            .toArray()
+            .then((results) => results.pop() || {});
+    }
+
     getContents(filter) {
         const page = filter.page;
         const size = filter.size;
-        const language = filter.language;
+        let language = filter.language;
+
+        if (['my','hi'].includes(language )) {
+            language = "en";
+        }
 
         return this.mongo
             .collection('content')
