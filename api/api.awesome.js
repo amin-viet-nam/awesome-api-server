@@ -31,22 +31,32 @@ module.exports = (router) => {
     });
 
     router.post('/api/content/recommend', (req, res, next) => {
+        console.log(req.body);
         res.send({});
     });
 
     router.post('/api/content/view', (req, res, next) => {
+        console.log(req.body);
         res.send({});
     });
 
     router.post('/api/content/referer', (req, res, next) => {
+        console.log(req.body);
         res.send({});
     });
 
     router.post('/api/user/share', (req, res, next) => {
+        console.log(req.body);
+        res.send({});
+    });
+
+    router.post('/api/user/clear_data', (req, res, next) => {
+        console.log(req.body);
         res.send({});
     });
 
     router.post('/api/content/push_recommend', (req, res, next) => {
+        console.log(req.body);
         res.send({});
     });
 };
