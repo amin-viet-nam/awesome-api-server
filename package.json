@@ -1,5 +1,5 @@
 {
-  "name": "forward-server",
+  "name": "api-server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,7 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "cheerio": "^1.0.0-rc.3",
     "cors": "^2.8.5",
     "dotenv": "^8.0.0",
     "express": "^4.16.4",
