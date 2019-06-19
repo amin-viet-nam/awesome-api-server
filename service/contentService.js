@@ -15,7 +15,7 @@ class ContentService extends BaseService {
             .then((results) => results.pop() || {});
     }
 
-    getContents(filter) {
+    getContentsRandom(filter) {
         const page = filter.page;
         const size = filter.size;
         let language = filter.language;

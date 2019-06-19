@@ -11,10 +11,10 @@ module.exports = (router) => {
     router.get('/api/content', (req, res, next) => {
         req.service
             .content
-            .getContents({
+            .getContentsRandom({
                 page: parseInt(req.query.page || 1),
                 size: 25,
-                language: req.query.language
+                language: req.query.language || 'en'
             })
             .then((value) => {
                 res.send(value);
