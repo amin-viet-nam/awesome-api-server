@@ -40,7 +40,7 @@ class ContentService extends BaseService {
                     }
                 },
                 {
-                    $skip: page * size
+                    $skip: (page - 1) * size
                 },
                 {
                     $limit: size
