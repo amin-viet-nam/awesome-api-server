@@ -9,7 +9,8 @@ class MongoConnectionPool {
             auto_reconnect: true,
             poolSize: 40,
             connectTimeoutMS: 500,
-            useNewUrlParser: true
+            useNewUrlParser: true,
+            slave_ok: true
         };
     }
 
